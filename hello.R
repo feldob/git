@@ -1,1 +1,1 @@
-print("Hello Proggers!")
+print("Hello Proggers! Let's talk git!")
