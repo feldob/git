@@ -1,0 +1,144 @@
+Presentation:
+- jobbat med git i 2 år, ingen guru. innan dess SVN, och innan dess CVS.
+- mälet: med lösningar som git blivit enkelt. använd för alla programmeringsprojekt (uppgifter).
+- arbetssätt + verktyg
+
+Varför använda sig av versionshantering?
+- dela på kod
+- skapa olika varianter av en mjukvara för olika kunder
+- spårbarhet
+- tidstämplat versioner (hitta ansvariga :) )
+
+Vem i publiken använder versionshantering?
+Microsoft produkter, svn, git?
+
+bild:
+- 4 nivåer
+- workspace (som utan versionshantering)
+- index (det vi vill versionshantera)
+- remote repo (server)
+- local repo (agerar som server)
+- remote repo (för att nå)
+
+SKAPA PROJEKT
+- mkdir myproject
+- cd myproject
+- ls -al
+- git init
+- ls -al
+- git status
+
+SKAPA FIL
+- nano hello.R // print("Hello Proggers!")
+- Rscript hello.R
+- git status
+- git add hello.R
+- nano test.txt // whatever.
+- git add .
+- git rm --cached test.txt
+- rm test.txt
+- git status
+
+COMMIT (SHA-512, meddelandet)
+- git commit -m "initial important"
+- git status
+- git log
+
+IGNORERA FIL
+- nano plot.R // pdf("plot.pdf") plot(sin, xlim=c(0,10)) dev.off()
+- Rscript plot.R
+- evince plot.pdf
+- git status
+- nano .gitignore // *.pdf
+** git add .gitignore
+** git commit -m "ignore pdfs."
+
+- git add p*
+- git commit -m "plotting support added."
+
+SERVER
+- cd ..
+- mkdir myprojectRepo
+- cd myprojectRepo
+- git --bare init
+- git status
+- git log
+- cd ../myproject
+- git remote add origin /home/feldob/myprojectRepo
+- git push origin master
+- cd ../myproject
+- git log
+
+BRANCH
+- git branch
+- git tag
+- git tag -a v0.1 -m "customerX"
+- git tag
+- git checkout -b featureX
+- git branch
+- git checkout master
+- git branch
+
+ADD FEATURE
+- git checkout featureX
+- nano hello.R // print("Hello Proggers! Let's talk git!")
+- git status
+- git diff
+- git add hello.R
+- git commit -m "feature featureX ensures that..."
+- git checkout master
+- nano hello.R
+- git checkout featureX
+- nano hello.R
+- git merge featureX
+- git status
+- git log
+- git push origin master
+- git branch -d featureX
+- git tag v0.2 -m "featureX included."
+- git push --tags
+
+FORK
+- su patjon
+- mkdir feldobProject
+- cd feldobProject
+- git clone /home/feldob/myprojectRepo .
+- git status
+
+CONTRIBUTE
+- git checkout -b sinBugFix
+- git branch
+- nano plot.R // change sin to cos
+- git status
+- git add .
+- git commit -m "in plot.R, y should be assigned cos, not sin -> result is flawed!"
+- git log
+-- git push origin master // FAIL
+- git request-pull origin/master /home/patjon/feldobProject
+- send an email to felix!
+
+INCLUDE
+- su feldob
+- cd /home/feldob/myproject
+- git tag
+- git checkout -b sinBugFix
+- git pull /home/eve/feldobProject sinBugFix
+-- merge, test...
+- git checkout master
+- git merge sinBugFix
+- git push original master
+
+REPETERA
+
+tools:
+finns grafiska gränssnitt!
+github (pull-request)
+bitbucket
+
+GITHUB
+- cd /home/feldob/myproject
+- git remote add github https://github.com/feldob/git.git
+** copy presentation file into project folder
+- git commit -a -m "for documentation reasons, add presentation notes to repo."
+- git push github master
+
